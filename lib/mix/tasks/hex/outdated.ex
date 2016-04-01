@@ -138,6 +138,7 @@ defmodule Mix.Tasks.Hex.Outdated do
     Enum.flat_map(deps, fn dep ->
       case lock[dep.app] do
         {:hex, package, lock_version} ->
+          pre? = pre? || String.contains? lock_version, "beta"
           latest_version = latest_version(package, pre?) || lock_version
           req = dep.requirement
 
